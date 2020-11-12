@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\FriendsAdventure.Data.Models\FriendsAdventure.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\FriendsAdventure.Data\FriendsAdventure.Data.csproj" />
+    <ProjectReference Include="..\FriendsAdventure.Services.Models\FriendsAdventure.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>

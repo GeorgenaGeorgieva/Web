@@ -1,0 +1,42 @@
+﻿@model EditProductInputModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <h3>To edit current product information fill the fields.</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Запази" class="btn btn-success" />
+                    <a class="btn btn-info" asp-action="All">Назад</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+</html>

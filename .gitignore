@@ -348,3 +348,16 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+/FriendsAdventure/Data/FriendsAdventure.Data/bin
+/FriendsAdventure/Data/FriendsAdventure.Data.Models/bin
+/FriendsAdventure/Data/FriendsAdventure.Data.Models/obj
+/FriendsAdventure/Data/FriendsAdventure.Data/obj
+/FriendsAdventure/FriendsAdventure/bin
+/FriendsAdventure/FriendsAdventure/obj
+/FriendsAdventure/Services/FriendsAdventure.Services/bin
+/FriendsAdventure/Services/FriendsAdventure.Services/obj
+/FriendsAdventure/Services/FriendsAdventure.Services.Models/bin
+/FriendsAdventure/Services/FriendsAdventure.Services.Models/obj
+/FriendsAdventure/WebApp/FriendsAdventure.WebApp/bin
+/FriendsAdventure/WebApp/FriendsAdventure.WebApp/obj

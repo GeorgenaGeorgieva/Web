@@ -1,0 +1,55 @@
+﻿@model AllOrdersViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>All</title>
+</head>
+<body>
+        <h2>Поръчки</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th hidden>
+                        Id
+                    </th>
+                    <th class="text-lg-left">
+                        Дата
+                    </th>
+                    <th class="text-center text-light">
+                        <a class="btn btn-success float-right btn-md" asp-controller="Orders" asp-action="Create">Нова</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td hidden>
+                            @order.Id
+                        </td>
+                        <td>
+                            @order.Date
+                        </td>
+                        <td>
+                            <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="float-right btn btn-info">Покажи</a>
+                            <a asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" class="float-right btn btn-danger">Изтрий</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            @if (!Model.PreviousDisabled)
+            {
+            <a href="/Orders/All?page=@Model.PreviousPage" class="float-left btn btn-primary">&#60;&#60;</a>
+            }
+            @if (!Model.NextDisabled)
+            {
+        <a href="/Orders/All?page=@Model.NextPage" class="float-right btn btn-primary">&#62;&#62;</a>
+            }
+        </div>
+</body>
+</html>

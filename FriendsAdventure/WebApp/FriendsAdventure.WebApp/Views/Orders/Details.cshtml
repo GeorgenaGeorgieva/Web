@@ -1,0 +1,81 @@
+﻿@model DetailsOrderViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div class="float-right" id="basket-pic">
+        <img src="~/img/basket-160442_640.png" class="img-responsive" alt="basket" width="140" />
+    </div>
+    <div>
+        <h2>Кошница</h2>
+        <dl class="row">
+            <dt class="col-sm-2" hidden>
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10" hidden>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-success float-lg-left" asp-controller="Orders" asp-action="AddingProduct" asp-route-orderId="@Model.Id">Добави/Премахни</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Продукт
+                </th>
+                <th>
+                    Описание
+                </th>
+                <th>
+                    Количество
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model.Products.Values)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" class="custom-control-input">
+                    </td>
+                    <td>
+                        @prod.ProductName
+                    </td>
+                    <td>
+                        @prod.Description
+                    </td>
+                    <td>
+                        @prod.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <a class="btn btn-info float-left" asp-action="All">Назад</a>
+    </div>
+
+</body>
+</html>

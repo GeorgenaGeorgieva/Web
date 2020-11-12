@@ -1,0 +1,55 @@
+﻿@model AllProductsViewModel
+
+
+<!DOCTYPE html>
+    <h2>Продукти</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th hidden>
+                    Id
+                </th>
+                <th>
+                    Име
+                </th>
+                <th>
+                    Описание
+                </th>
+                <th class="text-center">
+                    <a class="btn btn-success float-right btn-md" asp-controller="Products" asp-action="Create">Добави</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td hidden>
+                        @product.Id
+                    </td>
+                    <td>
+                        @product.Name
+                    </td>
+                    <td>
+                        @product.Description
+                    </td>
+                    <td>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="float-right btn btn-info">Детайли</a>
+                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="float-right btn btn-danger">Изтрий</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @if (!Model.PreviousDisabled)
+        {
+        <a href="/Products/All?page=@Model.PreviousPage" class="float-left btn btn-primary">&#60;&#60;</a>
+        }
+        @if (!Model.NextDisabled)
+        {
+    <a href="/Products/All?page=@Model.NextPage" class="float-right btn btn-primary">&#62;&#62;</a>
+        }
+    </div>
+
+
