@@ -6,10 +6,18 @@
 
     public class Order
     {
+        public Order()
+        {
+            this.ProductQuantities = new List<ProductQuantity>();
+        }
+
         [Key]
         public int Id { get; set; }
+
         public DateTime Date { get; set; }
+
         public bool IsDeleted { get; set; }
-        public ICollection<ProductQuantity> ProductsQuantities { get; set; } = new List<ProductQuantity>();
+
+        public ICollection<ProductQuantity> ProductQuantities { get; set; } 
    }
 }
