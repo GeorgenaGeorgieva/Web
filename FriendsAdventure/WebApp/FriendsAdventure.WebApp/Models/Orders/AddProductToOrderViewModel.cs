@@ -14,6 +14,7 @@
 
         [Display(Name ="Количество")]
         public int Quantity { get; set; }
+        
         public IEnumerable<ProductListingServiceModel> DataProducts { get; set; }
     }
 }
