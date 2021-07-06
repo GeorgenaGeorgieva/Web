@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using FriendsAdventure.Data;
 using FriendsAdventure.Services;
 using FriendsAdventure.Services.Implementations;
+using Microsoft.AspNetCore.Http;
+using FriendsAdventure.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FriendsAdventure.WebApp
 {
@@ -30,7 +33,12 @@ namespace FriendsAdventure.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FriendsAdventureDbContext>();
+            services.AddControllersWithViews(configure =>
+                configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            services.AddDbContext<FriendsAdventureDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
@@ -38,8 +46,39 @@ namespace FriendsAdventure.WebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(1);
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddRoles<IdentityRole>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication()
+                .AddFacebook(
+                    facebookOptions =>
+                    {
+                        facebookOptions.AppId = Configuration["Facebook:AppId"];
+                        facebookOptions.AppSecret = Configuration["Facebook:AppSecret"];
+                    })
+                .AddGoogle(
+                    googleOptions =>
+                    {
+                        googleOptions.ClientId = Configuration["Google:ClientId"];
+                        googleOptions.ClientSecret = Configuration["Google:ClientSecret"];
+                    });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -65,6 +104,8 @@ namespace FriendsAdventure.WebApp
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {
